@@ -36,6 +36,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var newTaskController = TextEditingController();
+
+  void add() {
+    if (newTaskController.text.isEmpty) return;
+
+    setState(() {
+      widget.items.add(
+        Item(
+          title: newTaskController.text,
+          done: false,
+        ),
+      );
+      newTaskController.text = "";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     newTaskController.clear();
@@ -49,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             fontSize: 20,
           ),
           decoration: InputDecoration(
-            labelText: "Nome da Lista",
+            labelText: "Nova Tarefa",
             labelStyle: TextStyle(color: Colors.white),
           ),
         ),
@@ -69,6 +84,11 @@ class _HomePageState extends State<HomePage> {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: add,
+        child: Icon(Icons.add),
+        backgroundColor: Colors.pink,
       ),
     );
   }
